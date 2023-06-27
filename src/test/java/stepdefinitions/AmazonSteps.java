@@ -13,8 +13,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
@@ -25,24 +23,13 @@ import java.util.Properties;
 public class AmazonSteps {
     private WebDriver driver;
 
-/*    @Before
-    public void setUp() {
-        FirefoxOptions firefoxOptions = new FirefoxOptions();
-        firefoxOptions.setBinary("C:\\Program Files\\Mozilla Firefox\\firefox.exe");
-        System.setProperty("webdriver.gecko.driver", "D:\\Downloads\\geckodriver-v0.33.0-win32\\geckodriver.exe");
-        WebDriverManager.firefoxdriver().setup();
-        driver = new FirefoxDriver(firefoxOptions);
-    }*/
-
     @Before
     public void setUp() throws IOException {
-        // Load the configuration file
         Properties properties = new Properties();
         ClassLoader classLoader = getClass().getClassLoader();
         InputStream inputStream = classLoader.getResourceAsStream("config.properties");
         properties.load(inputStream);
 
-        // Get the browser type from the configuration
         String browserType = properties.getProperty("browser");
 
         // Set the appropriate driver executable based on the browser type
@@ -61,7 +48,6 @@ public class AmazonSteps {
                 System.setProperty("webdriver.edge.driver", "D:\\Downloads\\edgedriver_win64\\msedgedriver.exe");
                 driver = new EdgeDriver();
                 break;
-            // Add more cases for other browsers if needed
 
             default:
                 System.out.println("Invalid browser type specified in the configuration.");
@@ -71,9 +57,6 @@ public class AmazonSteps {
 
     @Given("I launch chrome browser")
     public void iLaunchChromeBrowser() {
-        /*System.setProperty("webdriver.chrome.driver", "D:\\Downloads\\chromedriver_win32 (4)\\chromedriver.exe");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();*/
         driver.get("https://www.amazon.ca/");
 
     }
